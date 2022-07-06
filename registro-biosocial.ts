@@ -115,3 +115,9 @@ export class AnswerDTO {
         this.alternativeAnswer = alternativeAnswer || "";
     }
 }
+
+export interface AnswerHTTPInput {
+    questionID: number
+    answerIDs: number[]
+    alternativeAnswer: string
+}
