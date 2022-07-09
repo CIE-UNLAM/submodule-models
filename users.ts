@@ -1,7 +1,8 @@
-import {DataTypes, HasOne, Model} from "sequelize";
+import {DataTypes, HasOne, HasMany, Model} from "sequelize";
 import {DBManager} from "../utils/db";
 import {Patient} from "./patient";
 import {compareSync, hashSync} from "bcrypt"
+import { Appointment } from "./appointment";
 
 export class User extends Model {
     declare id: number;
@@ -19,6 +20,7 @@ export class User extends Model {
     declare deviceID: string;
     declare Patient: Patient;
     static Patient: HasOne<User, Patient>;
+    static Appointment: HasMany<User, Appointment>;
 
     public isValidPassword(p: string): boolean {
         return compareSync(p, this.password);
