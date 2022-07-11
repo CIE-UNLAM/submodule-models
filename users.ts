@@ -17,6 +17,8 @@ export class User extends Model {
     declare phone: string;
     declare alternativePhone: string;
     declare deviceID: string;
+    declare clientID: string;
+    declare secretKey: string;
     declare Patient: Patient;
     static Patient: HasOne<User, Patient>;
 
