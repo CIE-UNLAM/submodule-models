@@ -1,7 +1,8 @@
 import {DBManager} from "../utils/db";
 import {Patient} from "./patient";
 import {User} from "./users";
-import {BelongsTo, DataTypes, Model} from 'sequelize';
+import {BelongsTo, DataTypes, HasMany, HasOne, Model} from 'sequelize';
+import {CheckType} from "./checkType";
 
 export class Appointment extends Model{
     declare id: number;
@@ -13,6 +14,7 @@ export class Appointment extends Model{
 
     static Medic: BelongsTo<Appointment, User>;
     static Patient: BelongsTo<Appointment, Patient>;
+    static Check: BelongsTo<Appointment, CheckType>;
 }
 
 Appointment.init({
@@ -32,7 +34,7 @@ Appointment.init({
     },
     confirmed: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        defaultValue: false,
         allowNull: false
     },
     isVirtual: {
