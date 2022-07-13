@@ -32,12 +32,12 @@ export interface alertDTO {
     id: number,
     risk: number,
     isViewed: boolean,
-    patientHistoryID: number
+    PatientHistoryId: number
 }
 
 
-export const AlertRisk = {
-    LOW: 1,
-    MEDIUM: 2,
-    HIGH: 3
+export enum AlertRisk {
+    LOW = 1,
+    MEDIUM = 2,
+    HIGH = 3
 }

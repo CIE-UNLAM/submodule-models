@@ -18,11 +18,16 @@ PredefinedEvent.init({
         allowNull: false
     },
     type: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false
     }
 },{
     sequelize: DBManager.getInstance(),
     modelName: 'PredefinedEvent'
 });
+
+export enum PredefinedEventType {
+    User = 1,
+    System = 2
+}
 

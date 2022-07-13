@@ -13,18 +13,18 @@ export class PatientHistory extends Model {
     static HistoryEvent: HasMany<PatientHistory, HistoryEvent>;
 }
 
-export const HistoryStatus = {
-    INACTIVE: -1,
-    ACTIVE: 1,
-    REVIEW: 2, // TODO Que representa este estado?
-    FINISH: 3
+export enum HistoryStatus {
+    INACTIVE = -1,
+    ACTIVE = 1,
+    REVIEW = 2, // TODO Que representa este estado?
+    FINISH = 3
 }
 
-export const HistoryRisk = {
-    NO_RISK: -1,
-    LOW: 1,
-    MEDIUM: 2,
-    HIGH: 3
+export enum HistoryRisk {
+    NO_RISK = -1,
+    LOW = 1,
+    MEDIUM = 2,
+    HIGH = 3
 }
 
 PatientHistory.init({

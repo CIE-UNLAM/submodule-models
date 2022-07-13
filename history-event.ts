@@ -40,5 +40,5 @@ export interface historyEventDTO {
     event: string;
     detail: string;
     createdBy: string;
-    patientHistoryID: number;
+    PatientHistoryId: number;
 }
