@@ -9,6 +9,7 @@ export class CheckType extends Model{
     declare pregnantCategory: number;
     declare active: boolean;
     declare weeks: Array<number>;
+    declare isVirtual: boolean;
     static Appointment: HasMany<CheckType, Appointment>;
 }
 
@@ -39,6 +40,10 @@ CheckType.init({
     weeks: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: false
+    },
+    isVirtual: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, {
     // Other model options go here
