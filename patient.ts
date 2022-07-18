@@ -7,6 +7,7 @@ export class Patient extends Model {
     declare id: number
     declare FUM: Date
     declare FPP: Date
+    declare ValidatedFPP: boolean
     declare validated: boolean
     declare category: number
     static User: BelongsTo<Patient, User>;
@@ -38,6 +39,11 @@ Patient.init({
         },
         FPP: {
             type: DataTypes.DATEONLY,
+            allowNull: false
+        },
+        ValidatedFPP: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
             allowNull: false
         },
         category: {
