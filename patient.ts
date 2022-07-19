@@ -1,5 +1,6 @@
-import {BelongsTo, DataTypes, HasOne, Model} from "sequelize";
+import {BelongsTo, DataTypes, HasMany, Model} from "sequelize";
 import {DBManager} from "../utils/db";
+import { Appointment } from "./appointment";
 import {User} from "./users";
 import {PatientHistory} from "./patient-history";
 
@@ -11,6 +12,7 @@ export class Patient extends Model {
     declare validated: boolean
     declare category: number
     static User: BelongsTo<Patient, User>;
+    static Appointment: HasMany<Patient, Appointment>;
     static PatientHistory: HasOne<Patient, PatientHistory>;
 
     static calculateFPP(FUM: Date): Date {
