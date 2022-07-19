@@ -1,4 +1,4 @@
-import {BelongsTo, DataTypes, HasMany, Model} from "sequelize";
+import {BelongsTo, DataTypes, HasMany, HasOne, Model} from "sequelize";
 import {DBManager} from "../utils/db";
 import { Appointment } from "./appointment";
 import {User} from "./users";
