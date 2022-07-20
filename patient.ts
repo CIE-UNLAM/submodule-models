@@ -8,7 +8,7 @@ export class Patient extends Model {
     declare id: number
     declare FUM: Date
     declare FPP: Date
-    declare ValidatedFPP: boolean
+    declare validatedFPP: boolean
     declare validated: boolean
     declare category: number
     static User: BelongsTo<Patient, User>;
@@ -19,7 +19,7 @@ export class Patient extends Model {
         let FPP = new Date();
         FPP.setDate(FUM.getDate() + 10);
         FPP.setMonth(FUM.getMonth() - 3);
-        FPP.setFullYear(FUM.getFullYear() + 1);
+        FPP.setFullYear(FPP.getFullYear() + 1);
         return FPP;
     }
 }
@@ -43,7 +43,7 @@ Patient.init({
             type: DataTypes.DATEONLY,
             allowNull: false
         },
-        ValidatedFPP: {
+        validatedFPP: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
             allowNull: false
