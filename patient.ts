@@ -1,5 +1,6 @@
-import {BelongsTo, DataTypes, HasOne, Model} from "sequelize";
+import {BelongsTo, DataTypes, HasMany, HasOne, Model} from "sequelize";
 import {DBManager} from "../utils/db";
+import { Appointment } from "./appointment";
 import {User} from "./users";
 import {PatientHistory} from "./patient-history";
 
@@ -7,16 +8,18 @@ export class Patient extends Model {
     declare id: number
     declare FUM: Date
     declare FPP: Date
+    declare validatedFPP: boolean
     declare validated: boolean
     declare category: number
     static User: BelongsTo<Patient, User>;
+    static Appointment: HasMany<Patient, Appointment>;
     static PatientHistory: HasOne<Patient, PatientHistory>;
 
     static calculateFPP(FUM: Date): Date {
         let FPP = new Date();
         FPP.setDate(FUM.getDate() + 10);
         FPP.setMonth(FUM.getMonth() - 3);
-        FPP.setFullYear(FUM.getFullYear() + 1);
+        FPP.setFullYear(FPP.getFullYear() + 1);
         return FPP;
     }
 }
@@ -38,6 +41,11 @@ Patient.init({
         },
         FPP: {
             type: DataTypes.DATEONLY,
+            allowNull: false
+        },
+        validatedFPP: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
             allowNull: false
         },
         category: {
