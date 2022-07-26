@@ -8,6 +8,9 @@ import {User} from "./users";
 import {AnsweredQuestions, AnswerRegistroBiosocial, QuestionRegistroBiosocial} from "./registro-biosocial";
 import {Appointment} from "./appointment";
 import {CheckType} from "./checkType";
+import {QuestionWeeklyRegistration} from "./question-weekly-registration";
+import {Symptom} from "./symptom";
+import {SymptomRecommendation} from "./symptom-recommendation";
 
 export function associate() {
     // Users Service
@@ -37,4 +40,10 @@ export function associate() {
     Appointment.Medic = Appointment.belongsTo(User);
     CheckType.Appointment = CheckType.hasMany(Appointment);
     Appointment.Check = Appointment.belongsTo(CheckType);
+    QuestionWeeklyRegistration.Symptom = QuestionWeeklyRegistration.hasMany(Symptom);
+    Symptom.QuestionWeeklyRegistration = Symptom.belongsTo(QuestionWeeklyRegistration);
+    Symptom.Alert = Symptom.hasMany(Alert);
+    Alert.Symptom = Alert.belongsTo(Symptom);
+    SymptomRecommendation.Symptom = SymptomRecommendation.hasMany(Symptom)
+    Symptom.SymptomRecommendation = Symptom.belongsTo(SymptomRecommendation);
 }
