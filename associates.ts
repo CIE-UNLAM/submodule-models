@@ -7,7 +7,7 @@ import {HistoryEvent} from "./history-event";
 import {User} from "./users";
 import {AnsweredQuestions, AnswerRegistroBiosocial, QuestionRegistroBiosocial} from "./registro-biosocial";
 import {Appointment} from "./appointment";
-import {CheckType} from "./checkType";
+import {Control} from "./control";
 
 export function associate() {
     // Users Service
@@ -35,6 +35,6 @@ export function associate() {
     Patient.Appointment = Patient.hasMany(Appointment);
     Appointment.Patient = Appointment.belongsTo(Patient);
     Appointment.Medic = Appointment.belongsTo(User);
-    CheckType.Appointment = CheckType.hasMany(Appointment);
-    Appointment.Check = Appointment.belongsTo(CheckType);
+    Control.Appointment = Control.hasMany(Appointment);
+    Appointment.Check = Appointment.belongsTo(Control);
 }
