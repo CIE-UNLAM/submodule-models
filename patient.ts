@@ -3,6 +3,7 @@ import {DBManager} from "../utils/db";
 import { Appointment } from "./appointment";
 import {User} from "./users";
 import {PatientHistory} from "./patient-history";
+import { Control } from "./control";
 
 export class Patient extends Model {
     declare id: number
@@ -13,6 +14,7 @@ export class Patient extends Model {
     declare category: number
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
+    static Control: HasMany<Patient, Control>;
     static PatientHistory: HasOne<Patient, PatientHistory>;
 
     static calculateFPP(FUM: Date): Date {

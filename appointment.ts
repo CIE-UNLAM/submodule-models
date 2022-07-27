@@ -2,19 +2,19 @@ import {DBManager} from "../utils/db";
 import {Patient} from "./patient";
 import {User} from "./users";
 import {BelongsTo, DataTypes, HasMany, HasOne, Model} from 'sequelize';
-import {CheckType} from "./checkType";
+import {Control} from "./control";
 
 export class Appointment extends Model{
     declare id: number;
-    declare title: string;
     declare date: Date;
     declare confirmed: boolean;
     declare isVirtual: boolean;
     declare active: boolean;
+    declare hasAssisted: boolean;
 
     static Medic: BelongsTo<Appointment, User>;
     static Patient: BelongsTo<Appointment, Patient>;
-    static Check: BelongsTo<Appointment, CheckType>;
+    static Control: BelongsTo<Appointment, Control>;
 }
 
 Appointment.init({
@@ -23,10 +23,6 @@ Appointment.init({
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
-    },
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false
     },
     date: {
         type: DataTypes.DATE,
@@ -42,9 +38,14 @@ Appointment.init({
         defaultValue: false,
         allowNull: false
     },
-    active: {
+    isActive: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
+        allowNull: false
+    },
+    hasAssisted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: false
     }
 }, {
