@@ -1,42 +1,44 @@
 import {DBManager} from "../utils/db";
-import {BelongsTo, DataTypes, HasMany, Model} from 'sequelize';
+import {DataTypes, HasMany, Model} from 'sequelize';
 import {Appointment} from "./appointment";
-import { Patient } from "./patient";
 
-export class Control extends Model{
+export class CheckType extends Model{
     declare id: number;
+    declare title: string;
     declare description: string;
-    declare isActive: boolean;
-    declare weekFrom: number;
-    declare weekTo: number;
+    declare pregnantCategory: number;
+    declare active: boolean;
+    declare weeks: Array<number>;
     declare isVirtual: boolean;
-
-    static Appointment: HasMany<Control, Appointment>;
-    static Patient: BelongsTo<Control, Patient>;
+    static Appointment: HasMany<CheckType, Appointment>;
 }
 
-Control.init({
+CheckType.init({
     // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     description: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    isActive: {
+    pregnantCategory: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
         allowNull: false
     },
-    weekFrom: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    weekTo: {
-        type: DataTypes.INTEGER,
+    weeks: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: false
     },
     isVirtual: {
@@ -46,5 +48,5 @@ Control.init({
 }, {
     // Other model options go here
     sequelize: DBManager.getInstance(), // We need to pass the connection instance
-    modelName: 'Control' // We need to choose the model name
+    modelName: 'CheckType' // We need to choose the model name
 });
