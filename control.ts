@@ -47,12 +47,10 @@ Control.init({
     },
     requirements: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
-        defaultValue: {},
-        allowNull: false
+        allowNull: true
     },
     title: {
         type: DataTypes.STRING,
-        defaultValue: null,
         allowNull: true
     }
 }, {
