@@ -10,7 +10,8 @@ export class Control extends Model{
     declare weekFrom: number;
     declare weekTo: number;
     declare isVirtual: boolean;
-
+    declare requirements: Array<number>;
+    
     static Appointment: HasOne<Control, Appointment>;
     static Patient: BelongsTo<Control, Patient>;
 }
@@ -42,6 +43,11 @@ Control.init({
     isVirtual: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    requirements: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: {},
+        allowNull: false
     }
 }, {
     // Other model options go here
