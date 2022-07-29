@@ -11,6 +11,7 @@ export class Control extends Model{
     declare weekTo: number;
     declare isVirtual: boolean;
     declare requirements: Array<number>;
+    declare title : string;
     
     static Appointment: HasOne<Control, Appointment>;
     static Patient: BelongsTo<Control, Patient>;
