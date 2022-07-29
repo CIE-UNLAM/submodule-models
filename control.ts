@@ -12,7 +12,7 @@ export class Control extends Model{
     declare isVirtual: boolean;
     declare requirements: Array<number>;
     declare title : string;
-    
+
     static Appointment: HasOne<Control, Appointment>;
     static Patient: BelongsTo<Control, Patient>;
 }
@@ -49,6 +49,11 @@ Control.init({
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         defaultValue: {},
         allowNull: false
+    },
+    title: {
+        type: DataTypes.STRING,
+        defaultValue: null,
+        allowNull: true
     }
 }, {
     // Other model options go here
