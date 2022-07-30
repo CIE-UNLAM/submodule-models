@@ -19,7 +19,7 @@ export class Patient extends Model {
         let FPP = new Date();
         FPP.setDate(FUM.getDate() + 10);
         FPP.setMonth(FUM.getMonth() - 3);
-        FPP.setFullYear(FPP.getFullYear() + 1);
+        FPP.setFullYear(FUM.getFullYear() + 1);
         return FPP;
     }
 }
