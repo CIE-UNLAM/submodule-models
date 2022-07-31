@@ -37,11 +37,11 @@ Alert.init({
 });
 
 export interface alertDTO {
-    id: number,
+    id?: number,
     risk: number,
-    isViewed: boolean,
+    isViewed?: boolean,
     gestationalWeek: number,
-    PatientHistoryId: number,
+    PatientHistoryId?: number,
     SymptomId: number
 }
 
