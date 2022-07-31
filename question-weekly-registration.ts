@@ -1,6 +1,7 @@
 import {DBManager} from "../utils/db";
 import {DataTypes, HasMany, Model} from "sequelize";
 import { Symptom } from "./symptom";
+import { AnswerWeeklyRegistration } from "./answer-weekly-registration";
 
 export class QuestionWeeklyRegistration extends Model {
     declare id: number;
@@ -10,7 +11,9 @@ export class QuestionWeeklyRegistration extends Model {
     declare isMultiSelection: boolean;
     declare startWeek: number;
     declare endWeek: number;
+    declare Symptoms: Symptom[];
     static Symptom: HasMany<QuestionWeeklyRegistration, Symptom>;
+    static AnswerWeeklyRegistration: HasMany<QuestionWeeklyRegistration, AnswerWeeklyRegistration>;
 }
 
 QuestionWeeklyRegistration.init({

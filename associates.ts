@@ -11,6 +11,11 @@ import {CheckType} from "./checkType";
 import {QuestionWeeklyRegistration} from "./question-weekly-registration";
 import {Symptom} from "./symptom";
 import {SymptomRecommendation} from "./symptom-recommendation";
+import {AnswerWeeklyRegistrationRepository} from "../repositories/answer-weekly-registration";
+import {AnswerWeeklyRegistration} from "./answer-weekly-registration";
+import {AnswerSymptom} from "./answer-symptom";
+import {AnswerWeeklyRegistrationService} from "../services/answer-weekly-registration";
+import {WeeklySymptomReport} from "./weekly-symptom-report";
 
 export function associate() {
     // Users Service
@@ -46,4 +51,16 @@ export function associate() {
     Alert.Symptom = Alert.belongsTo(Symptom);
     SymptomRecommendation.Symptom = SymptomRecommendation.hasMany(Symptom)
     Symptom.SymptomRecommendation = Symptom.belongsTo(SymptomRecommendation);
+
+    // Mobile Service
+    QuestionWeeklyRegistration.AnswerWeeklyRegistration = QuestionWeeklyRegistration.hasMany(AnswerWeeklyRegistration);
+    AnswerWeeklyRegistration.QuestionWeeklyRegistration = AnswerWeeklyRegistration.belongsTo(QuestionWeeklyRegistration);
+    Patient.AnswerWeeklyRegistration = Patient.hasMany(AnswerWeeklyRegistration);
+    AnswerWeeklyRegistration.Patient = AnswerWeeklyRegistration.belongsTo(Patient);
+    Patient.AnswerSymptom = Patient.hasMany(AnswerSymptom);
+    AnswerSymptom.Patient = AnswerSymptom.belongsTo(Patient);
+    AnswerSymptom.Symptom = AnswerSymptom.belongsTo(Symptom);
+    Symptom.AnswerSymptom = Symptom.hasMany(AnswerSymptom);
+    Patient.WeeklySymptomReport = Patient.hasMany(WeeklySymptomReport);
+    WeeklySymptomReport.Patient = WeeklySymptomReport.belongsTo(Patient);
 }

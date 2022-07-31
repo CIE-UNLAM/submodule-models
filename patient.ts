@@ -3,6 +3,9 @@ import {DBManager} from "../utils/db";
 import { Appointment } from "./appointment";
 import {User} from "./users";
 import {PatientHistory} from "./patient-history";
+import { AnswerWeeklyRegistration } from "./answer-weekly-registration";
+import { AnswerSymptom } from "./answer-symptom";
+import { WeeklySymptomReport } from "./weekly-symptom-report";
 
 export class Patient extends Model {
     declare id: number
@@ -14,6 +17,9 @@ export class Patient extends Model {
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
     static PatientHistory: HasOne<Patient, PatientHistory>;
+    static AnswerWeeklyRegistration: HasMany<Patient, AnswerWeeklyRegistration>;
+    static AnswerSymptom: HasMany<Patient, AnswerSymptom>;
+    static WeeklySymptomReport: HasMany<Patient, WeeklySymptomReport>;
 
     static calculateFPP(FUM: Date): Date {
         let FPP = new Date();
