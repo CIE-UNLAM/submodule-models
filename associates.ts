@@ -11,10 +11,8 @@ import {CheckType} from "./checkType";
 import {QuestionWeeklyRegistration} from "./question-weekly-registration";
 import {Symptom} from "./symptom";
 import {SymptomRecommendation} from "./symptom-recommendation";
-import {AnswerWeeklyRegistrationRepository} from "../repositories/answer-weekly-registration";
 import {AnswerWeeklyRegistration} from "./answer-weekly-registration";
 import {AnswerSymptom} from "./answer-symptom";
-import {AnswerWeeklyRegistrationService} from "../services/answer-weekly-registration";
 import {WeeklySymptomReport} from "./weekly-symptom-report";
 
 export function associate() {
