@@ -53,7 +53,7 @@ export interface weeklySymptomReportHTTPOutput {
         title: string,
         isMultiSelection: boolean,
         answered: boolean,
-        positiveAnswer: boolean,
+        isAffirmative: boolean,
         symptoms: {
             id: number,
             label: string,

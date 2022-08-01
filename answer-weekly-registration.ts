@@ -6,7 +6,7 @@ import { QuestionWeeklyRegistration } from "./question-weekly-registration";
 export class AnswerWeeklyRegistration extends Model {
     declare id: number;
     declare gestationalWeek: number;
-    declare isAnswered: boolean;
+    declare isAffirmative: boolean;
     declare QuestionWeeklyRegistrationId: number
     static Patient: BelongsTo<AnswerWeeklyRegistration, Patient>;
     static QuestionWeeklyRegistration: BelongsTo<AnswerWeeklyRegistration, QuestionWeeklyRegistration>;
@@ -22,7 +22,7 @@ AnswerWeeklyRegistration.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    isAnswered: {
+    isAffirmative: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
@@ -35,6 +35,6 @@ AnswerWeeklyRegistration.init({
 export interface answerWeeklyRegistrationDTO {
     QuestionWeeklyRegistrationId: number;
     PatientId: number,
-    isAnswered: boolean
+    isAffirmative: boolean
     gestationalWeek: number,
 }
