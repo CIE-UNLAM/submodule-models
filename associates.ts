@@ -42,6 +42,7 @@ export function associate() {
     Appointment.Patient = Appointment.belongsTo(Patient);
     Appointment.Medic = Appointment.belongsTo(User);
     Control.Appointment = Control.hasOne(Appointment);
+    Control.Patient = Control.hasOne(Patient);
     Appointment.Control = Appointment.belongsTo(Control);
     Patient.Control = Patient.hasMany(Control);
     QuestionWeeklyRegistration.Symptom = QuestionWeeklyRegistration.hasMany(Symptom);
