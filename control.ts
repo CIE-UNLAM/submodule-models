@@ -59,14 +59,14 @@ Control.init({
     modelName: 'Control' // We need to choose the model name
 });
 
-export interface inputControlList {
+export interface inputControlListDTO {
     username: string,
     limit: number,
     weekFrom: number,
     weekTo: number
 }
 
-export interface inputControlCreation {
+export interface inputControlCreationDTO {
     username: string,
     description: string,
     weekFrom: number,
