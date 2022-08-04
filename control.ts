@@ -58,3 +58,19 @@ Control.init({
     sequelize: DBManager.getInstance(), // We need to pass the connection instance
     modelName: 'Control' // We need to choose the model name
 });
+
+export interface inputControlList {
+    username: string,
+    limit: number,
+    weekFrom: number,
+    weekTo: number
+}
+
+export interface inputControlCreation {
+    username: string,
+    description: string,
+    weekFrom: number,
+    weekTo: number,
+    isVirtual: boolean,
+    requirements: Array<number>
+}

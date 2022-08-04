@@ -7,7 +7,7 @@ import {Control} from "./control";
 export class Appointment extends Model{
     declare id: number;
     declare date: Date;
-    declare confirmed: boolean;
+    declare isConfirmed: boolean;
     declare isVirtual: boolean;
     declare active: boolean;
     declare hasAssisted: boolean;
@@ -28,7 +28,7 @@ Appointment.init({
         type: DataTypes.DATE,
         allowNull: false
     },
-    confirmed: {
+    isConfirmed: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false
@@ -53,3 +53,20 @@ Appointment.init({
     sequelize: DBManager.getInstance(), // We need to pass the connection instance
     modelName: 'Appointment' // We need to choose the model name
 });
+
+export interface inputAppointmentList {
+    UserId : number,
+    PatientId : number,
+    dateFrom : string,
+    dateTo : string
+}
+
+export interface inputAppointmentCreation {
+    UserId : number,
+    PatientId : number,
+    title : string,
+    date : string,
+    isConfirmed : boolean,
+    isVirtual : boolean,
+    ControlId: number
+}
