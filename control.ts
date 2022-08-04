@@ -74,3 +74,9 @@ export interface InputControlCreationDTO {
     isVirtual: boolean,
     requirements: Array<number>
 }
+
+export enum ControlRequirementEnum {
+    ECOGRAFIA = 1,
+    LABORATORIO = 2,
+    MONITOREO_FETAL = 3,
+}
