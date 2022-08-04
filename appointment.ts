@@ -54,14 +54,14 @@ Appointment.init({
     modelName: 'Appointment' // We need to choose the model name
 });
 
-export interface inputAppointmentListDTO {
+export interface InputAppointmentListDTO {
     UserId : number,
     PatientId : number,
     dateFrom : string,
     dateTo : string
 }
 
-export interface inputAppointmentCreationDTO {
+export interface InputAppointmentCreationDTO {
     UserId : number,
     PatientId : number,
     title : string,
