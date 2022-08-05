@@ -55,15 +55,15 @@ Appointment.init({
 });
 
 export interface InputAppointmentListDTO {
-    UserId : number,
-    PatientId : number,
+    medicUsername : number,
+    patientUsername : number,
     dateFrom : string,
     dateTo : string
 }
 
 export interface InputAppointmentCreationDTO {
-    UserId : number,
-    PatientId : number,
+    patientUsername : number,
+    medicUsername : number,
     title : string,
     date : string,
     isConfirmed : boolean,
