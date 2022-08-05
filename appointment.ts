@@ -9,7 +9,7 @@ export class Appointment extends Model{
     declare date: Date;
     declare isConfirmed: boolean;
     declare isVirtual: boolean;
-    declare active: boolean;
+    declare isActive: boolean;
     declare hasAssisted: boolean;
 
     static Medic: BelongsTo<Appointment, User>;
