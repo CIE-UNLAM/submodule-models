@@ -70,3 +70,16 @@ export interface InputAppointmentCreationDTO {
     isVirtual : boolean,
     ControlId: number
 }
+
+export interface InputAppointmentUpdateDTO {
+    appointmentId : number,
+    patientUsername : string,
+    medicUsername : string,
+    title : string,
+    date : string,
+    isConfirmed : boolean,
+    isVirtual : boolean,
+    ControlId: number,
+    isActive : boolean,
+    hasAssisted: boolean
+}
