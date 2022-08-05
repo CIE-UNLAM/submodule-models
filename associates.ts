@@ -14,6 +14,8 @@ import {SymptomRecommendation} from "./symptom-recommendation";
 import {AnswerWeeklyRegistration} from "./answer-weekly-registration";
 import {AnswerSymptom} from "./answer-symptom";
 import {WeeklySymptomReport} from "./weekly-symptom-report";
+import {FinishedPatient} from "./finished-patient";
+import {Efector} from "./efector";
 
 export function associate() {
     // Users Service
@@ -27,6 +29,20 @@ export function associate() {
     User.hasMany(AnsweredQuestions);
     AnsweredQuestions.belongsTo(AnswerRegistroBiosocial);
     AnswerRegistroBiosocial.hasMany(AnsweredQuestions);
+    Patient.FinishedPatient = Patient.hasOne(FinishedPatient,{
+        foreignKey: {
+            allowNull: false
+        }
+    });
+    FinishedPatient.Patient = FinishedPatient.belongsTo(Patient);
+    User.FinishedPatient = User.hasMany(FinishedPatient,{
+        foreignKey: {
+            allowNull: false
+        }
+    });
+    FinishedPatient.User = FinishedPatient.belongsTo(User);
+    Efector.FinishedPatient = Efector.hasMany(FinishedPatient);
+    FinishedPatient.Efector = FinishedPatient.belongsTo(Efector);
 
     // Web Service
     Article.Tag = Article.hasMany(Tag);
@@ -47,7 +63,7 @@ export function associate() {
     Symptom.QuestionWeeklyRegistration = Symptom.belongsTo(QuestionWeeklyRegistration);
     Symptom.Alert = Symptom.hasMany(Alert);
     Alert.Symptom = Alert.belongsTo(Symptom);
-    SymptomRecommendation.Symptom = SymptomRecommendation.hasMany(Symptom)
+    SymptomRecommendation.Symptom = SymptomRecommendation.hasMany(Symptom);
     Symptom.SymptomRecommendation = Symptom.belongsTo(SymptomRecommendation);
 
     // Mobile Service

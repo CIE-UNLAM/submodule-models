@@ -6,6 +6,7 @@ import {PatientHistory} from "./patient-history";
 import { AnswerWeeklyRegistration } from "./answer-weekly-registration";
 import { AnswerSymptom } from "./answer-symptom";
 import { WeeklySymptomReport } from "./weekly-symptom-report";
+import {FinishedPatient} from "./finished-patient";
 
 export class Patient extends Model {
     declare id: number
@@ -14,12 +15,16 @@ export class Patient extends Model {
     declare validatedFPP: boolean
     declare validated: boolean
     declare category: number
+    declare FinishedPatient: FinishedPatient
+
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
     static PatientHistory: HasOne<Patient, PatientHistory>;
     static AnswerWeeklyRegistration: HasMany<Patient, AnswerWeeklyRegistration>;
     static AnswerSymptom: HasMany<Patient, AnswerSymptom>;
     static WeeklySymptomReport: HasMany<Patient, WeeklySymptomReport>;
+    static FinishedPatient: HasOne<Patient,FinishedPatient>;
+
 
     static calculateFPP(FUM: Date): Date {
         let FPP = new Date();

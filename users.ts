@@ -3,6 +3,7 @@ import {DBManager} from "../utils/db";
 import {Patient} from "./patient";
 import {compareSync, hashSync} from "bcrypt"
 import { Appointment } from "./appointment";
+import {FinishedPatient} from "./finished-patient";
 
 export class User extends Model {
     declare id: number;
@@ -21,8 +22,10 @@ export class User extends Model {
     declare clientID: string;
     declare secretKey: string;
     declare Patient: Patient;
+
     static Patient: HasOne<User, Patient>;
     static Appointment: HasMany<User, Appointment>;
+    static FinishedPatient: HasMany<User,FinishedPatient>;
 
     public isValidPassword(p: string): boolean {
         return compareSync(p, this.password);

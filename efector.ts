@@ -1,5 +1,6 @@
-import {DataTypes, Model} from "sequelize";
+import {DataTypes, HasMany, Model} from "sequelize";
 import {DBManager} from "../utils/db";
+import {FinishedPatient} from "./finished-patient";
 
 export class Efector extends Model {
     declare institutionName: string
@@ -7,6 +8,9 @@ export class Efector extends Model {
     declare attentionLevel: number
     declare availableCityList:  Array<string>
     declare active: boolean
+
+    static FinishedPatient: HasMany<Efector,FinishedPatient>;
+
 }
 
 Efector.init({
