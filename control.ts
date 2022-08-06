@@ -63,7 +63,8 @@ export interface InputControlListDTO {
     username?: string,
     limit?: number,
     weekFrom?: number,
-    weekTo?: number
+    weekTo?: number,
+    all?: boolean
 }
 
 export interface InputControlCreationDTO {
