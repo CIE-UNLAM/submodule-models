@@ -60,10 +60,10 @@ Control.init({
 });
 
 export interface InputControlListDTO {
-    username: string,
-    limit: number,
-    weekFrom: number,
-    weekTo: number
+    username?: string,
+    limit?: number,
+    weekFrom?: number,
+    weekTo?: number
 }
 
 export interface InputControlCreationDTO {

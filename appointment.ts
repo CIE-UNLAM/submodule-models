@@ -55,10 +55,11 @@ Appointment.init({
 });
 
 export interface InputAppointmentListDTO {
-    medicUsername : string,
-    patientUsername : string,
-    dateFrom : string,
-    dateTo : string
+    medicUsername? : string,
+    patientUsername? : string,
+    dateFrom? : string,
+    dateTo? : string,
+    all?: boolean
 }
 
 export interface InputAppointmentCreationDTO {
@@ -73,13 +74,13 @@ export interface InputAppointmentCreationDTO {
 
 export interface InputAppointmentUpdateDTO {
     appointmentId : number,
-    patientUsername : string,
-    medicUsername : string,
-    title : string,
-    date : string,
-    isConfirmed : boolean,
-    isVirtual : boolean,
-    ControlId: number,
-    isActive : boolean,
-    hasAssisted: boolean
+    patientUsername? : string,
+    medicUsername? : string,
+    title? : string,
+    date? : string,
+    isConfirmed? : boolean,
+    isVirtual? : boolean,
+    ControlId?: number,
+    isActive? : boolean,
+    hasAssisted?: boolean
 }
