@@ -14,6 +14,7 @@ export class Patient extends Model {
     declare validatedFPP: boolean
     declare validated: boolean
     declare category: number
+    declare preferenceDays: boolean[] //Se tiene en cuenta que la semana empieza desde el lunes
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
     static PatientHistory: HasOne<Patient, PatientHistory>;
@@ -57,7 +58,12 @@ Patient.init({
         category: {
             type: DataTypes.INTEGER,
             allowNull: false
-        }
+        },
+        preferenceDays: {
+        type: DataTypes.ARRAY(DataTypes.BOOLEAN),
+        defaultValue: [0,0,0,0,0,0,0],
+        allowNull: false
+    }
     }, {sequelize: DBManager.getInstance(), modelName: 'Patient'})
 
 export const PREGNANT_CATEGORY = {
@@ -66,3 +72,4 @@ export const PREGNANT_CATEGORY = {
     C: 3,
     D: 4,
 }
+
