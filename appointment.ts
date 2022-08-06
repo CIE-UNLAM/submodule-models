@@ -11,6 +11,7 @@ export class Appointment extends Model{
     declare isVirtual: boolean;
     declare isActive: boolean;
     declare hasAssisted: boolean;
+    declare title: string;
 
     static Medic: BelongsTo<Appointment, User>;
     static Patient: BelongsTo<Appointment, Patient>;
@@ -47,6 +48,11 @@ Appointment.init({
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false
+    },
+    title: {
+        type: DataTypes.STRING,
+        defaultValue: false,
+        allowNull: true
     }
 }, {
     // Other model options go here
@@ -65,11 +71,11 @@ export interface InputAppointmentListDTO {
 export interface InputAppointmentCreationDTO {
     patientUsername : string,
     medicUsername : string,
-    title : string,
+    title? : string,
     date : string,
     isConfirmed : boolean,
     isVirtual : boolean,
-    ControlId: number
+    ControlId?: number
 }
 
 export interface InputAppointmentUpdateDTO {
