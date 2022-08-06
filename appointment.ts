@@ -65,7 +65,7 @@ export interface InputAppointmentListDTO {
     patientUsername? : string,
     dateFrom? : string,
     dateTo? : string,
-    all?: boolean
+    all?: string
 }
 
 export interface InputAppointmentCreationDTO {
