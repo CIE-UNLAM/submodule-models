@@ -11,6 +11,25 @@ export class PatientHistory extends Model {
     static Alert: HasMany<PatientHistory, Alert>;
     static Patient: BelongsTo<PatientHistory, Patient>;
     static HistoryEvent: HasMany<PatientHistory, HistoryEvent>;
+
+    static getRiskLabel(risk: HistoryRisk): string {
+        switch (risk) {
+            case HistoryRisk.NO_RISK: return "Sin riesgo";
+            case HistoryRisk.LOW: return "Bajo";
+            case HistoryRisk.MEDIUM: return "Medio";
+            case HistoryRisk.HIGH: return "Alto";
+            case HistoryRisk.SOS: return "Emergencia";
+        }
+    }
+
+    static getStatusLabel(status: HistoryStatus): string {
+        switch (status) {
+            case HistoryStatus.INACTIVE: return "Inactivo";
+            case HistoryStatus.ACTIVE: return "Activo";
+            case HistoryStatus.REVIEW: return "En revision";
+            case HistoryStatus.FINISH: return "Finalizado";
+        }
+    }
 }
 
 export enum HistoryStatus {
