@@ -3,6 +3,7 @@ import {DBManager} from "../utils/db";
 import { Appointment } from "./appointment";
 import {User} from "./users";
 import {PatientHistory} from "./patient-history";
+import { Control } from "./control";
 import { AnswerWeeklyRegistration } from "./answer-weekly-registration";
 import { AnswerSymptom } from "./answer-symptom";
 import { WeeklySymptomReport } from "./weekly-symptom-report";
@@ -17,6 +18,7 @@ export class Patient extends Model {
     declare preferenceDays: boolean[] //Se tiene en cuenta que la semana empieza desde el lunes
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
+    static Control: HasMany<Patient, Control>;
     static PatientHistory: HasOne<Patient, PatientHistory>;
     static AnswerWeeklyRegistration: HasMany<Patient, AnswerWeeklyRegistration>;
     static AnswerSymptom: HasMany<Patient, AnswerSymptom>;

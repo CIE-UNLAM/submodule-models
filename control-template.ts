@@ -1,44 +1,37 @@
 import {DBManager} from "../utils/db";
-import {DataTypes, HasMany, Model} from 'sequelize';
-import {Appointment} from "./appointment";
+import {DataTypes, Model} from 'sequelize';
 
-export class CheckType extends Model{
+export class ControlTemplate extends Model{
     declare id: number;
-    declare title: string;
     declare description: string;
-    declare pregnantCategory: number;
-    declare active: boolean;
-    declare weeks: Array<number>;
+    declare isActive: boolean;
+    declare weekFrom: number;
+    declare weekTo: number;
     declare isVirtual: boolean;
-    static Appointment: HasMany<CheckType, Appointment>;
 }
 
-CheckType.init({
+ControlTemplate.init({
     // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     description: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    pregnantCategory: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    active: {
+    isActive: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
         allowNull: false
     },
-    weeks: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
+    weekFrom: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    weekTo: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     isVirtual: {
@@ -48,5 +41,5 @@ CheckType.init({
 }, {
     // Other model options go here
     sequelize: DBManager.getInstance(), // We need to pass the connection instance
-    modelName: 'CheckType' // We need to choose the model name
+    modelName: 'ControlTemplate' // We need to choose the model name
 });
