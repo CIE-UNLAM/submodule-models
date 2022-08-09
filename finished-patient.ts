@@ -35,10 +35,18 @@ FinishedPatient.init({
     {sequelize: DBManager.getInstance(), modelName: 'FinishedPatient'}
 );
 
-//Lista de motivos de finalizacion, falta completar
-export const Motivo = {
+
+export const Motivo_medico = {
     PartoNatural: "Parto natural",
     PartoPrematuro: "Parto prematuro",
     MuerteFetal: "Muerte fetal",
     Derivacion: "Derivacion"
+};
+
+export const Motivo_PG = {
+    Practicidad: "No le parecio practica",
+    Comodidad: "No le parecio comoda con la atencion",
+    Distancia: "Distancia al hospital",
+    Horario: "Problemas con los horarios",
+    Otro: "Otro"
 };
