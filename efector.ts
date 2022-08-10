@@ -83,3 +83,33 @@ Efector.init({
     sequelize: DBManager.getInstance(), // We need to pass the connection instance
     modelName: 'Efector' // We need to choose the model name
 });
+
+export interface InputEfectorCreationDTO {
+    institutionName: string
+    attentionLevel: number
+    address:  string
+    city : string
+    telephoneNumber : string
+    directions : string
+    description : string
+    webAddress : string
+    neighbourhood : string
+    province : string
+    attentionHours : string
+    attentionType : string
+}
+
+export interface InputEfectorUpdateDTO {
+    institutionName?: string
+    attentionLevel?: number
+    address?:  string
+    city? : string
+    telephoneNumber? : string
+    directions? : string
+    description? : string
+    webAddress? : string
+    neighbourhood? : string
+    province? : string
+    attentionHours? : string
+    attentionType? : string
+}
