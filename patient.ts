@@ -1,12 +1,13 @@
 import {BelongsTo, DataTypes, HasMany, HasOne, Model} from "sequelize";
 import {DBManager} from "../utils/db";
-import { Appointment } from "./appointment";
+import {Appointment} from "./appointment";
 import {User} from "./users";
 import {PatientHistory} from "./patient-history";
-import { Control } from "./control";
-import { AnswerWeeklyRegistration } from "./answer-weekly-registration";
-import { AnswerSymptom } from "./answer-symptom";
-import { WeeklySymptomReport } from "./weekly-symptom-report";
+import {Control} from "./control";
+import {AnswerWeeklyRegistration} from "./answer-weekly-registration";
+import {AnswerSymptom} from "./answer-symptom";
+import {WeeklySymptomReport} from "./weekly-symptom-report";
+import {PostMedicalAssistance} from "./post-medical-assistance";
 
 export class Patient extends Model {
     declare id: number
@@ -23,6 +24,7 @@ export class Patient extends Model {
     static AnswerWeeklyRegistration: HasMany<Patient, AnswerWeeklyRegistration>;
     static AnswerSymptom: HasMany<Patient, AnswerSymptom>;
     static WeeklySymptomReport: HasMany<Patient, WeeklySymptomReport>;
+    static PostMedicalAssistance: HasMany<Patient, PostMedicalAssistance>;
 
     static calculateFPP(FUM: Date): Date {
         let FPP = new Date();
@@ -34,39 +36,39 @@ export class Patient extends Model {
 }
 
 Patient.init({
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true
-        },
-        validated: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
-            allowNull: false
-        },
-        FUM: {
-            type: DataTypes.DATEONLY,
-            allowNull: false
-        },
-        FPP: {
-            type: DataTypes.DATEONLY,
-            allowNull: false
-        },
-        validatedFPP: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
-            allowNull: false
-        },
-        category: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        preferenceDays: {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    validated: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+    },
+    FUM: {
+        type: DataTypes.DATEONLY,
+        allowNull: false
+    },
+    FPP: {
+        type: DataTypes.DATEONLY,
+        allowNull: false
+    },
+    validatedFPP: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+    },
+    category: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    preferenceDays: {
         type: DataTypes.ARRAY(DataTypes.BOOLEAN),
-        defaultValue: [0,0,0,0,0,0,0],
+        defaultValue: [0, 0, 0, 0, 0, 0, 0],
         allowNull: false
     }
-    }, {sequelize: DBManager.getInstance(), modelName: 'Patient'})
+}, {sequelize: DBManager.getInstance(), modelName: 'Patient'})
 
 export const PREGNANT_CATEGORY = {
     A: 1,

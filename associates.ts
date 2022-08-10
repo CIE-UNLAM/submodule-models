@@ -7,19 +7,20 @@ import {HistoryEvent} from "./history-event";
 import {User} from "./users";
 import {AnsweredQuestions, AnswerRegistroBiosocial, QuestionRegistroBiosocial} from "./registro-biosocial";
 import {Appointment} from "./appointment";
-import { Control } from "./control";
+import {Control} from "./control";
 import {QuestionWeeklyRegistration} from "./question-weekly-registration";
 import {Symptom} from "./symptom";
 import {SymptomRecommendation} from "./symptom-recommendation";
 import {AnswerWeeklyRegistration} from "./answer-weekly-registration";
 import {AnswerSymptom} from "./answer-symptom";
 import {WeeklySymptomReport} from "./weekly-symptom-report";
+import {PostMedicalAssistance} from "./post-medical-assistance";
 
 export function associate() {
     // Users Service
     User.Patient = User.hasOne(Patient);
     Patient.User = Patient.belongsTo(User);
-    QuestionRegistroBiosocial.AnswerRegistroBiosocial = QuestionRegistroBiosocial.hasMany(AnswerRegistroBiosocial, { onDelete: 'CASCADE' });
+    QuestionRegistroBiosocial.AnswerRegistroBiosocial = QuestionRegistroBiosocial.hasMany(AnswerRegistroBiosocial, {onDelete: 'CASCADE'});
     AnswerRegistroBiosocial.QuestionRegistroBiosocial = AnswerRegistroBiosocial.belongsTo(QuestionRegistroBiosocial);
     AnswerRegistroBiosocial.belongsToMany(User, {through: AnsweredQuestions});
     User.belongsToMany(AnswerRegistroBiosocial, {through: AnsweredQuestions});
@@ -51,6 +52,10 @@ export function associate() {
     Alert.Symptom = Alert.belongsTo(Symptom);
     SymptomRecommendation.Symptom = SymptomRecommendation.hasMany(Symptom)
     Symptom.SymptomRecommendation = Symptom.belongsTo(SymptomRecommendation);
+    Patient.PostMedicalAssistance = Patient.hasMany(PostMedicalAssistance);
+    PostMedicalAssistance.Patient = PostMedicalAssistance.belongsTo(Patient);
+    User.PostMedicalAssistance = User.hasMany(PostMedicalAssistance);
+    PostMedicalAssistance.User = PostMedicalAssistance.belongsTo(User);
 
     // Mobile Service
     QuestionWeeklyRegistration.AnswerWeeklyRegistration = QuestionWeeklyRegistration.hasMany(AnswerWeeklyRegistration);
