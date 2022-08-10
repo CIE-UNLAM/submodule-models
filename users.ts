@@ -17,6 +17,7 @@ export class User extends Model {
     declare role: Array<number>;
     declare phone: string;
     declare alternativePhone: string;
+    declare altPhoneDescription: string;
     declare deviceID: string;
     declare clientID: string;
     declare secretKey: string;
@@ -89,6 +90,10 @@ User.init({
         allowNull: true
     },
     alternativePhone: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    altPhoneDescription: {
         type: DataTypes.STRING,
         allowNull: true
     },
