@@ -2,19 +2,20 @@ import {DBManager} from "../utils/db";
 import {Patient} from "./patient";
 import {User} from "./users";
 import {BelongsTo, DataTypes, HasMany, HasOne, Model} from 'sequelize';
-import {CheckType} from "./checkType";
+import {Control} from "./control";
 
 export class Appointment extends Model{
     declare id: number;
-    declare title: string;
     declare date: Date;
-    declare confirmed: boolean;
+    declare isConfirmed: boolean;
     declare isVirtual: boolean;
-    declare active: boolean;
+    declare isActive: boolean;
+    declare hasAssisted: boolean;
+    declare title: string;
 
     static Medic: BelongsTo<Appointment, User>;
     static Patient: BelongsTo<Appointment, Patient>;
-    static Check: BelongsTo<Appointment, CheckType>;
+    static Control: BelongsTo<Appointment, Control>;
 }
 
 Appointment.init({
@@ -24,15 +25,11 @@ Appointment.init({
         autoIncrement: true,
         primaryKey: true
     },
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     date: {
         type: DataTypes.DATE,
         allowNull: false
     },
-    confirmed: {
+    isConfirmed: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false
@@ -42,13 +39,54 @@ Appointment.init({
         defaultValue: false,
         allowNull: false
     },
-    active: {
+    isActive: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
         allowNull: false
+    },
+    hasAssisted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+    },
+    title: {
+        type: DataTypes.STRING,
+        defaultValue: false,
+        allowNull: true
     }
 }, {
     // Other model options go here
     sequelize: DBManager.getInstance(), // We need to pass the connection instance
     modelName: 'Appointment' // We need to choose the model name
 });
+
+export interface InputAppointmentListDTO {
+    medicUsername? : string,
+    patientUsername? : string,
+    dateFrom? : string,
+    dateTo? : string,
+    all?: string
+}
+
+export interface InputAppointmentCreationDTO {
+    patientUsername : string,
+    medicUsername : string,
+    title? : string,
+    date : string,
+    isConfirmed : boolean,
+    isVirtual : boolean,
+    ControlId?: number
+}
+
+export interface InputAppointmentUpdateDTO {
+    appointmentId : number,
+    patientUsername? : string,
+    medicUsername? : string,
+    title? : string,
+    date? : string,
+    isConfirmed? : boolean,
+    isVirtual? : boolean,
+    ControlId?: number,
+    isActive? : boolean,
+    hasAssisted?: boolean
+}
