@@ -5,7 +5,7 @@ export class RiskFactor extends Model {
     declare id: number;
     declare active: boolean;
     declare description: string;
-    declare types: Array<RiskFactorType>;
+    declare type: RiskFactorType;
 }
 
 RiskFactor.init({
@@ -23,8 +23,8 @@ RiskFactor.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    types: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
+    type: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
 }, {
