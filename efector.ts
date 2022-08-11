@@ -100,6 +100,7 @@ export interface InputEfectorCreationDTO {
 }
 
 export interface InputEfectorUpdateDTO {
+    id: number
     institutionName?: string
     attentionLevel?: number
     address?:  string
