@@ -1,19 +1,16 @@
-import {BelongsTo, DataTypes, HasMany, HasOne, Model} from "sequelize";
+import {BelongsTo, DataTypes, Model} from "sequelize";
 import {DBManager} from "../utils/db";
 import {Patient} from "./patient";
 import {User} from "./users";
 import {Efector} from "./efector";
 
 export class FinishedPatient extends Model {
-
     declare id: number;
-    declare motivo: string;
-    declare notas: string;
-
+    declare motive: string;
+    declare notes: string;
     static Patient: BelongsTo<FinishedPatient, Patient>;
     static User: BelongsTo<FinishedPatient, User>;
     static Efector: BelongsTo<FinishedPatient, Efector>;
-
 }
 
 FinishedPatient.init({
@@ -22,31 +19,46 @@ FinishedPatient.init({
             autoIncrement: true,
             primaryKey: true
         },
-        motivo: {
+        motive: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        notas: {
-            type: DataTypes.STRING,
+        notes: {
+            type: DataTypes.TEXT,
             allowNull: true
         }
-
-    },
-    {sequelize: DBManager.getInstance(), modelName: 'FinishedPatient'}
+    }, {
+        sequelize: DBManager.getInstance(), modelName: 'FinishedPatient'
+    }
 );
 
+export interface FinishedPatientHTTPInput {
+    PatientId?: number,
+    motive: string,
+    notes: string,
+    UserId?: number,
+    EfectorId?: number
+}
 
-export const Motivo_medico = {
-    PartoNatural: "Parto natural",
-    PartoPrematuro: "Parto prematuro",
-    MuerteFetal: "Muerte fetal",
-    Derivacion: "Derivacion"
-};
+export interface Motive {
+    label: string
+    isDerivation?: boolean
+}
 
-export const Motivo_PG = {
-    Practicidad: "No le parecio practica",
-    Comodidad: "No le parecio comoda con la atencion",
-    Distancia: "Distancia al hospital",
-    Horario: "Problemas con los horarios",
-    Otro: "Otro"
-};
+export const MEDIC_MOTIVES: Motive[] = [
+    {label: "Parto natural"},
+    {label: "Parto prematuro"},
+    {label: "Muerte fetal"},
+    {
+        label: "Derivación",
+        isDerivation: true
+    }
+];
+
+export const PG_MOTIVES: Motive[] = [
+    {label: "No le pareció practica"},
+    {label: "No le pareció cómoda con la atención"},
+    {label: "Distancia al hospital"},
+    {label: "Dificultades con disponibilidad de horarios del hospital para los controles"},
+    {label: "Otro"},
+];
