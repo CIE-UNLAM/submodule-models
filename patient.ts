@@ -15,7 +15,9 @@ export class Patient extends Model {
     declare FPP: Date
     declare validatedFPP: boolean
     declare validated: boolean
-    declare category: number
+    declare prevRisk: number
+    declare socioAmbientalRisk: number
+    declare currentRisk: number
     declare preferenceDays: boolean[] //Se tiene en cuenta que la semana empieza desde el lunes
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
@@ -35,38 +37,55 @@ export class Patient extends Model {
     }
 }
 
+export const RISK_LEVEL = {
+    Alto: 3,
+    Medio: 2,
+    Bajo: 1
+}
+
 Patient.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    validated: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false
-    },
-    FUM: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-    },
-    FPP: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-    },
-    validatedFPP: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false
-    },
-    category: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    preferenceDays: {
-        type: DataTypes.ARRAY(DataTypes.BOOLEAN),
-        defaultValue: [0, 0, 0, 0, 0, 0, 0],
-        allowNull: false
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        validated: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
+        },
+        FUM: {
+            type: DataTypes.DATEONLY,
+            allowNull: false
+        },
+        FPP: {
+            type: DataTypes.DATEONLY,
+            allowNull: false
+        },
+        validatedFPP: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
+        },
+        prevRisk: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: RISK_LEVEL.Bajo
+        },
+        socioAmbientalRisk: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: RISK_LEVEL.Bajo
+        },
+        currentRisk: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: RISK_LEVEL.Bajo
+         },
+        preferenceDays: {
+            type: DataTypes.ARRAY(DataTypes.BOOLEAN),
+            defaultValue: [0,0,0,0,0,0,0],
+            allowNull: false
     }
 }, {sequelize: DBManager.getInstance(), modelName: 'Patient'})
 
@@ -76,4 +95,5 @@ export const PREGNANT_CATEGORY = {
     C: 3,
     D: 4,
 }
+
 

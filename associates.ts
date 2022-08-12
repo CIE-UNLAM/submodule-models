@@ -14,6 +14,8 @@ import {SymptomRecommendation} from "./symptom-recommendation";
 import {AnswerWeeklyRegistration} from "./answer-weekly-registration";
 import {AnswerSymptom} from "./answer-symptom";
 import {WeeklySymptomReport} from "./weekly-symptom-report";
+import {RiskFactor} from "./risk-factor";
+import {RiskFactorPatient} from "./risk-factor-patient";
 import {PostMedicalAssistance} from "./post-medical-assistance";
 
 export function associate() {
@@ -28,6 +30,12 @@ export function associate() {
     User.hasMany(AnsweredQuestions);
     AnsweredQuestions.belongsTo(AnswerRegistroBiosocial);
     AnswerRegistroBiosocial.hasMany(AnsweredQuestions);
+    Patient.belongsToMany(RiskFactor, {through: RiskFactorPatient});
+    RiskFactor.belongsToMany(Patient, {through: RiskFactorPatient});
+    RiskFactorPatient.belongsTo(Patient);
+    RiskFactorPatient.belongsTo(RiskFactor);
+    Patient.hasMany(RiskFactorPatient);
+    RiskFactor.hasMany(RiskFactorPatient);
 
     // Web Service
     Article.Tag = Article.hasMany(Tag);
