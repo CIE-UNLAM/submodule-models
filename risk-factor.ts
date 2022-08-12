@@ -3,7 +3,7 @@ import {DBManager} from "../utils/db";
 
 export class RiskFactor extends Model {
     declare id: number;
-    declare active: boolean;
+    declare isActive: boolean;
     declare description: string;
     declare type: RiskFactorType;
 }
@@ -14,7 +14,7 @@ RiskFactor.init({
         autoIncrement: true,
         primaryKey: true
     },
-    active: {
+    isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true
