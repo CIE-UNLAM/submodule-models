@@ -16,6 +16,7 @@ import {AnswerSymptom} from "./answer-symptom";
 import {WeeklySymptomReport} from "./weekly-symptom-report";
 import {RiskFactor} from "./risk-factor";
 import {RiskFactorPatient} from "./risk-factor-patient";
+import {PostMedicalAssistance} from "./post-medical-assistance";
 
 export function associate() {
     // Users Service
@@ -59,6 +60,10 @@ export function associate() {
     Alert.Symptom = Alert.belongsTo(Symptom);
     SymptomRecommendation.Symptom = SymptomRecommendation.hasMany(Symptom)
     Symptom.SymptomRecommendation = Symptom.belongsTo(SymptomRecommendation);
+    Patient.PostMedicalAssistance = Patient.hasMany(PostMedicalAssistance);
+    PostMedicalAssistance.Patient = PostMedicalAssistance.belongsTo(Patient);
+    User.PostMedicalAssistance = User.hasMany(PostMedicalAssistance);
+    PostMedicalAssistance.User = PostMedicalAssistance.belongsTo(User);
 
     // Mobile Service
     QuestionWeeklyRegistration.AnswerWeeklyRegistration = QuestionWeeklyRegistration.hasMany(AnswerWeeklyRegistration);
