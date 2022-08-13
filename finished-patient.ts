@@ -43,22 +43,20 @@ export interface FinishedPatientHTTPInput {
 export interface Motive {
     label: string
     isDerivation?: boolean
+    canWrite?: boolean
 }
 
 export const MEDIC_MOTIVES: Motive[] = [
-    {label: "Parto natural"},
+    {label: "Parto natural" },
     {label: "Parto prematuro"},
     {label: "Muerte fetal"},
-    {
-        label: "Derivación",
-        isDerivation: true
-    }
+    {label: "Derivación", isDerivation: true, canWrite: true}
 ];
 
 export const PG_MOTIVES: Motive[] = [
-    {label: "No le pareció practica"},
-    {label: "No le pareció cómoda con la atención"},
-    {label: "Distancia al hospital"},
-    {label: "Dificultades con disponibilidad de horarios del hospital para los controles"},
-    {label: "Otro"},
+    {label: "No le pareció practica", canWrite: true},
+    {label: "No le pareció cómoda con la atención", canWrite: true},
+    {label: "Distancia al hospital", canWrite: true},
+    {label: "Dificultades con disponibilidad de horarios del hospital para los controles", canWrite: true},
+    {label: "Otro", canWrite: true},
 ];
