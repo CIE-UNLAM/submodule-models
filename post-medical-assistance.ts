@@ -11,6 +11,7 @@ export class PostMedicalAssistance extends Model {
     declare weight: number;
     declare size: number;
     declare bloodPressure: string;
+    declare gestationalWeek: number;
     static Patient: BelongsTo<PostMedicalAssistance, Patient>;
     static User: BelongsTo<PostMedicalAssistance, User>;
 }
@@ -51,6 +52,10 @@ PostMedicalAssistance.init({
             }
             this.setDataValue('bloodPressure', input);
         }
+    },
+    gestationalWeek: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     }
 }, {
     sequelize: DBManager.getInstance(),
@@ -62,7 +67,8 @@ export interface PostMedicalAssistanceDTO {
     number: number,
     weight: number,
     size: number,
-    bloodPressure: string;
+    bloodPressure: string,
+    gestationalWeek?: number,
     PatientId: number,
     UserId?: number,
     AppointmentId?: number
