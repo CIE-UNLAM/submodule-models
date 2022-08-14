@@ -7,7 +7,7 @@ import {HistoryEvent} from "./history-event";
 import {User} from "./users";
 import {AnsweredQuestions, AnswerRegistroBiosocial, QuestionRegistroBiosocial} from "./registro-biosocial";
 import {Appointment} from "./appointment";
-import { Control } from "./control";
+import {Control} from "./control";
 import {QuestionWeeklyRegistration} from "./question-weekly-registration";
 import {Symptom} from "./symptom";
 import {SymptomRecommendation} from "./symptom-recommendation";
@@ -16,12 +16,15 @@ import {AnswerSymptom} from "./answer-symptom";
 import {WeeklySymptomReport} from "./weekly-symptom-report";
 import {FinishedPatient} from "./finished-patient";
 import {Efector} from "./efector";
+import {RiskFactor} from "./risk-factor";
+import {RiskFactorPatient} from "./risk-factor-patient";
+import {PostMedicalAssistance} from "./post-medical-assistance";
 
 export function associate() {
     // Users Service
     User.Patient = User.hasOne(Patient);
     Patient.User = Patient.belongsTo(User);
-    QuestionRegistroBiosocial.AnswerRegistroBiosocial = QuestionRegistroBiosocial.hasMany(AnswerRegistroBiosocial, { onDelete: 'CASCADE' });
+    QuestionRegistroBiosocial.AnswerRegistroBiosocial = QuestionRegistroBiosocial.hasMany(AnswerRegistroBiosocial, {onDelete: 'CASCADE'});
     AnswerRegistroBiosocial.QuestionRegistroBiosocial = AnswerRegistroBiosocial.belongsTo(QuestionRegistroBiosocial);
     AnswerRegistroBiosocial.belongsToMany(User, {through: AnsweredQuestions});
     User.belongsToMany(AnswerRegistroBiosocial, {through: AnsweredQuestions});
@@ -43,6 +46,12 @@ export function associate() {
     FinishedPatient.User = FinishedPatient.belongsTo(User);
     Efector.FinishedPatient = Efector.hasMany(FinishedPatient);
     FinishedPatient.Efector = FinishedPatient.belongsTo(Efector);
+    Patient.belongsToMany(RiskFactor, {through: RiskFactorPatient});
+    RiskFactor.belongsToMany(Patient, {through: RiskFactorPatient});
+    RiskFactorPatient.belongsTo(Patient);
+    RiskFactorPatient.belongsTo(RiskFactor);
+    Patient.hasMany(RiskFactorPatient);
+    RiskFactor.hasMany(RiskFactorPatient);
 
     // Web Service
     Article.Tag = Article.hasMany(Tag);
@@ -67,6 +76,10 @@ export function associate() {
     Alert.Symptom = Alert.belongsTo(Symptom);
     SymptomRecommendation.Symptom = SymptomRecommendation.hasMany(Symptom);
     Symptom.SymptomRecommendation = Symptom.belongsTo(SymptomRecommendation);
+    Patient.PostMedicalAssistance = Patient.hasMany(PostMedicalAssistance);
+    PostMedicalAssistance.Patient = PostMedicalAssistance.belongsTo(Patient);
+    User.PostMedicalAssistance = User.hasMany(PostMedicalAssistance);
+    PostMedicalAssistance.User = PostMedicalAssistance.belongsTo(User);
 
     // Mobile Service
     QuestionWeeklyRegistration.AnswerWeeklyRegistration = QuestionWeeklyRegistration.hasMany(AnswerWeeklyRegistration);

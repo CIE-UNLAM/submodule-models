@@ -65,7 +65,8 @@ export interface InputAppointmentListDTO {
     patientUsername? : string,
     dateFrom? : string,
     dateTo? : string,
-    all?: string
+    all?: string,
+    assistedStatus?: string
 }
 
 export interface InputAppointmentCreationDTO {

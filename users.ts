@@ -1,9 +1,10 @@
-import {DataTypes, HasOne, HasMany, Model} from "sequelize";
+import {DataTypes, HasMany, HasOne, Model} from "sequelize";
 import {DBManager} from "../utils/db";
 import {Patient} from "./patient";
 import {compareSync, hashSync} from "bcrypt"
-import { Appointment } from "./appointment";
 import {FinishedPatient} from "./finished-patient";
+import {Appointment} from "./appointment";
+import {PostMedicalAssistance} from "./post-medical-assistance";
 
 export class User extends Model {
     declare id: number;
@@ -18,6 +19,7 @@ export class User extends Model {
     declare role: Array<number>;
     declare phone: string;
     declare alternativePhone: string;
+    declare altPhoneDescription: string;
     declare deviceID: string;
     declare clientID: string;
     declare secretKey: string;
@@ -26,6 +28,7 @@ export class User extends Model {
     static Patient: HasOne<User, Patient>;
     static Appointment: HasMany<User, Appointment>;
     static FinishedPatient: HasMany<User,FinishedPatient>;
+    static PostMedicalAssistance: HasMany<User, PostMedicalAssistance>;
 
     public isValidPassword(p: string): boolean {
         return compareSync(p, this.password);
@@ -92,6 +95,10 @@ User.init({
         allowNull: true
     },
     alternativePhone: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    altPhoneDescription: {
         type: DataTypes.STRING,
         allowNull: true
     },
