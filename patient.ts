@@ -20,6 +20,7 @@ export class Patient extends Model {
     declare socialRisk: number;
     declare currentRisk: number;
     declare preferenceDays: boolean[]; // Se tiene en cuenta que la semana empieza el lunes
+    declare FinishedPatient: FinishedPatient;
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
     static Control: HasMany<Patient, Control>;
@@ -27,7 +28,7 @@ export class Patient extends Model {
     static AnswerWeeklyRegistration: HasMany<Patient, AnswerWeeklyRegistration>;
     static AnswerSymptom: HasMany<Patient, AnswerSymptom>;
     static WeeklySymptomReport: HasMany<Patient, WeeklySymptomReport>;
-    static FinishedPatient: HasOne<Patient,FinishedPatient>;
+    static FinishedPatient: HasOne<Patient, FinishedPatient>;
     static PostMedicalAssistance: HasMany<Patient, PostMedicalAssistance>;
 
     static calculateFPP(FUM: Date): Date {
