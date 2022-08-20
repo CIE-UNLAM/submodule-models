@@ -13,4 +13,5 @@ export interface GuestDTO {
     phone?: string;
     role: number[];
     username: string;
+    gender: string;
 }
