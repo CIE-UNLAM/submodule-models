@@ -11,6 +11,7 @@ export class PostMedicalAssistance extends Model {
     declare weight: number;
     declare size: number;
     declare bloodPressure: string;
+    declare IMC: number;
     declare gestationalWeek: number;
     static Patient: BelongsTo<PostMedicalAssistance, Patient>;
     static User: BelongsTo<PostMedicalAssistance, User>;
@@ -53,6 +54,14 @@ PostMedicalAssistance.init({
             this.setDataValue('bloodPressure', input);
         }
     },
+    IMC: {
+        type: DataTypes.DECIMAL,
+        allowNull: false,
+        defaultValue: 0,
+        get() {
+            return parseFloat(this.getDataValue('IMC'));
+        },
+    },
     gestationalWeek: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -68,6 +77,7 @@ export interface PostMedicalAssistanceDTO {
     weight: number,
     size: number,
     bloodPressure: string,
+    IMC: number,
     gestationalWeek?: number,
     PatientId: number,
     UserId?: number,
