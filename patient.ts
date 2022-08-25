@@ -19,6 +19,8 @@ export class Patient extends Model {
     declare socialRisk: number;
     declare currentRisk: number;
     declare preferenceDays: boolean[]; // Se tiene en cuenta que la semana empieza el lunes
+    declare gestationalWeek: number;
+    declare User: User;
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
     static Control: HasMany<Patient, Control>;
