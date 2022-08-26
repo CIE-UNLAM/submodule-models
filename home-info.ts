@@ -1,4 +1,4 @@
-export interface homeArticleInfoDTO {
+export interface HomeArticleInfoDTO {
     baby: string,
     body: string,
     health: string
