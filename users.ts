@@ -2,6 +2,7 @@ import {DataTypes, HasMany, HasOne, Model} from "sequelize";
 import {DBManager} from "../utils/db";
 import {Patient} from "./patient";
 import {compareSync, hashSync} from "bcrypt"
+import {FinishedPatient} from "./finished-patient";
 import {Appointment} from "./appointment";
 import {PostMedicalAssistance} from "./post-medical-assistance";
 
@@ -23,8 +24,10 @@ export class User extends Model {
     declare clientID: string;
     declare secretKey: string;
     declare Patient: Patient;
+
     static Patient: HasOne<User, Patient>;
     static Appointment: HasMany<User, Appointment>;
+    static FinishedPatient: HasMany<User,FinishedPatient>;
     static PostMedicalAssistance: HasMany<User, PostMedicalAssistance>;
 
     public isValidPassword(p: string): boolean {
