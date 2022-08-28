@@ -24,7 +24,7 @@ export class Patient extends Model {
     declare gender: string;
     declare User: User;
     declare FinishedPatient: FinishedPatient;
-    
+
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
     static Control: HasMany<Patient, Control>;
@@ -96,7 +96,8 @@ Patient.init({
     },
     gender: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: "Mujer Cis"
     }
 }, {sequelize: DBManager.getInstance(), modelName: 'Patient'});
 
