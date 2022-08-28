@@ -30,6 +30,10 @@ export class Notification extends Model {
     public setBody() {
         throw 'not implemented';
     }
+
+    public send() {
+        throw 'not implemented';
+    }
 }
 
 Notification.init({
@@ -176,6 +180,9 @@ export class MassiveDeliveryNotification extends Notification {
 
     public setBody() {
         this.body = this.customBody;
+    }
+    public send() {
+        console.log('massive delivery notification push');
     }
 }
 
