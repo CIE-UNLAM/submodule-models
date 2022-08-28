@@ -21,9 +21,10 @@ export class Patient extends Model {
     declare currentRisk: number;
     declare preferenceDays: boolean[]; // Se tiene en cuenta que la semana empieza el lunes
     declare gestationalWeek: number;
+    declare gender: string;
     declare User: User;
     declare FinishedPatient: FinishedPatient;
-
+    
     static User: BelongsTo<Patient, User>;
     static Appointment: HasMany<Patient, Appointment>;
     static Control: HasMany<Patient, Control>;
@@ -91,6 +92,10 @@ Patient.init({
     preferenceDays: {
         type: DataTypes.ARRAY(DataTypes.BOOLEAN),
         defaultValue: [0, 0, 0, 0, 0, 0, 0],
+        allowNull: false
+    },
+    gender: {
+        type: DataTypes.STRING,
         allowNull: false
     }
 }, {sequelize: DBManager.getInstance(), modelName: 'Patient'});
