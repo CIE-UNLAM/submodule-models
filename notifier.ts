@@ -4,6 +4,6 @@ export interface NotifierDTO {
     previousRisk: number,
     currentRisk: number,
     socialRisk: number,
-    gestacionalWeekStart: number,
-    gestacionalWeekEnd: number,
+    gestationalWeekStart: number,
+    gestationalWeekEnd: number,
 }
