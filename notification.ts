@@ -2,12 +2,13 @@ import {DBManager} from "../utils/db";
 import {DataTypes, Model} from 'sequelize';
 import {CustomError} from "../utils/http-response";
 import httpStatus from "http-status-codes";
-import {Symptom} from "./symptom";
+import {Symptom, SymptomLevel} from "./symptom";
 import {getRootSession} from "../utils/session";
 import {WebAPI} from "../utils/net";
 import {Appointment} from "./appointment";
 import {Control} from "./control";
 import {createDateWithoutTimezone} from "../utils/date";
+import {NotificationRepository} from "../repositories/notifications";
 
 export class Notification extends Model {
     declare id: number;
@@ -17,6 +18,8 @@ export class Notification extends Model {
     declare body: string;
     declare viewed: boolean;
     declare deleted: boolean;
+    declare scheduled: boolean;
+    declare createdAt: Date;
 
     async fillFields() {
         await this.setTitle();
@@ -67,6 +70,11 @@ Notification.init({
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
+    },
+    scheduled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 }, {
     // Other model options go here
@@ -88,19 +96,20 @@ export interface NotificationDTO {
     title?: string,
     body?: string,
     symptomID?: number,
+    symptom?: Symptom,
     recipients: string[],
     appointment?: Appointment,
     control?: Control
 }
 
-export async function buildNotificationFromType(input: NotificationDTO): Promise<Notification> {
+export async function buildNotificationFromType(input: NotificationDTO, recipient: string): Promise<Notification> {
     let ret: Notification;
     switch (input.type) {
         case NotificationType.SYMPTOM_RECOMMENDATION: {
             if (!input.symptomID) {
                 throw 'unable to create symptom recommendation notification';
             }
-            ret = new RecommendationNotification(input.symptomID);
+            ret = new RecommendationNotification(input.symptomID, recipient);
             break;
         }
         case NotificationType.MASSIVE_DELIVERY: {
@@ -128,26 +137,41 @@ export async function buildNotificationFromType(input: NotificationDTO): Promise
             ret = new ControlWithoutAppointmentNotification(input.control);
             break;
         }
+        case NotificationType.GUARD_ASSISTANCE: {
+            if (!input.symptom) {
+                throw 'unable to create guard assistance notification';
+            }
+            ret = new GuardAssistanceNotification(input.symptom);
+            break;
+        }
         default: {
             throw new CustomError(httpStatus.BAD_REQUEST, 'No se pudo construir la notificación');
         }
     }
     ret.type = input.type;
     await ret.fillFields();
+    ret.recipient = recipient;
     return ret;
 }
 
 export class RecommendationNotification extends Notification {
     public symptomID!: number;
     private symptom!: Symptom;
+    private readonly customRecipient!: string;
 
-    constructor(symptomID: number) {
+    constructor(symptomID: number, customRecipient: string) {
         super();
         this.symptomID = symptomID;
+        this.customRecipient = customRecipient;
+    }
+
+    private async init() {
+        await this.fillSymptom();
+        await this.createAssistanceGuardNotification();
     }
 
     public async setTitle() {
-        await this.fillSymptom();
+        await this.init();
         this.title = `Recomendación según síntoma - ${this.symptom.label}`;
     }
 
@@ -160,6 +184,17 @@ export class RecommendationNotification extends Notification {
             const session = await getRootSession();
             const api = new WebAPI(session);
             this.symptom = <Symptom>await api.get(`/api/1/symptoms/${this.symptomID}`);
+        }
+    }
+
+    private async createAssistanceGuardNotification() {
+        if (this.symptom.level === SymptomLevel.HIGH || this.symptom.level === SymptomLevel.SOS) {
+            const nr = new NotificationRepository();
+            const n = await buildNotificationFromType({
+                type: NotificationType.GUARD_ASSISTANCE, recipients: [this.customRecipient], symptom: this.symptom
+            }, this.customRecipient);
+            n.scheduled = true;
+            await nr.save(n);
         }
     }
 }
@@ -232,6 +267,23 @@ export class ControlWithoutAppointmentNotification extends Notification {
 
     setBody() {
         this.body = `Usted tiene el ${this.control.title.toLocaleLowerCase()} asignado en las semanas ${this.control.weekFrom}-${this.control.weekTo} que aun no posee un turno asignado.\nComuníquese con el hospital para solicitarlo`;
+    }
+}
+
+export class GuardAssistanceNotification extends Notification {
+    public symptom!: Symptom;
+
+    constructor(symptom: Symptom) {
+        super();
+        this.symptom = symptom;
+    }
+
+    setTitle() {
+        this.title = `Confirmación de asistencia a guardia`;
+    }
+
+    setBody() {
+        this.body = `¿Se acerco a la guardia para revisar el síntoma ${this.symptom.label.toLocaleLowerCase()} reportado el dia anterior?`
     }
 }
 
