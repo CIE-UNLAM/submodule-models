@@ -9,11 +9,13 @@ import {Appointment} from "./appointment";
 import {Control} from "./control";
 import {createDateWithoutTimezone} from "../utils/date";
 import {NotificationRepository} from "../repositories/notifications";
+import { FCM } from "../utils/firebase";
 
 export class Notification extends Model {
     declare id: number;
     declare type: NotificationType;
     declare recipient: string;
+    declare device_token: string;
     declare title: string;
     declare body: string;
     declare viewed: boolean;
@@ -34,8 +36,16 @@ export class Notification extends Model {
         throw 'not implemented';
     }
 
-    public send() {
-        throw 'not implemented';
+    public setDeviceToken(token: string) {
+        this.device_token = token;
+    }
+
+    public send(): Promise<string> | undefined {
+        return FCM.sendPushNotification(
+            this.title,
+            this.body,
+            this.device_token
+        );
     }
 }
 
@@ -197,6 +207,12 @@ export class RecommendationNotification extends Notification {
             await nr.save(n);
         }
     }
+
+    public send(): Promise<string> | undefined {
+        if (this.symptom.level === SymptomLevel.HIGH || this.symptom.level === SymptomLevel.SOS) {
+            return super.send();
+        }
+    }
 }
 
 export class MassiveDeliveryNotification extends Notification {
@@ -215,9 +231,6 @@ export class MassiveDeliveryNotification extends Notification {
 
     public setBody() {
         this.body = this.customBody;
-    }
-    public send() {
-        console.log('massive delivery notification push');
     }
 }
 
