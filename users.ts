@@ -23,6 +23,7 @@ export class User extends Model {
     declare deviceID: string;
     declare clientID: string;
     declare secretKey: string;
+    declare device_token: string;
     declare Patient: Patient;
 
     static Patient: HasOne<User, Patient>;
@@ -103,6 +104,10 @@ User.init({
         allowNull: true
     },
     deviceID: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    device_token: {
         type: DataTypes.STRING,
         allowNull: true
     }
