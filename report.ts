@@ -24,7 +24,7 @@ Report.init({
         allowNull: false
     },
     searchParams: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.ARRAY(DataTypes.TEXT),
         allowNull: false,
     }
     },{
