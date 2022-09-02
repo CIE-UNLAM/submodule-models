@@ -9,6 +9,7 @@ import {AnswerSymptom} from "./answer-symptom";
 import {WeeklySymptomReport} from "./weekly-symptom-report";
 import {PostMedicalAssistance} from "./post-medical-assistance";
 import {FinishedPatient} from "./finished-patient";
+import {GuardAssistance} from "./guard-assistance";
 
 export class Patient extends Model {
     declare id: number;
@@ -34,6 +35,7 @@ export class Patient extends Model {
     static WeeklySymptomReport: HasMany<Patient, WeeklySymptomReport>;
     static FinishedPatient: HasOne<Patient, FinishedPatient>;
     static PostMedicalAssistance: HasMany<Patient, PostMedicalAssistance>;
+    static GuardAssistance: HasMany<Patient, GuardAssistance>;
 
     static calculateFPP(FUM: Date): Date {
         let FPP = new Date();
