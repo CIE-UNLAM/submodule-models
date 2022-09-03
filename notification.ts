@@ -8,8 +8,7 @@ import {WebAPI} from "../utils/net";
 import {Appointment} from "./appointment";
 import {Control} from "./control";
 import {createDateWithoutTimezone} from "../utils/date";
-import {NotificationRepository} from "../repositories/notifications";
-import { FCM } from "../utils/firebase";
+import {FCM} from "../utils/firebase";
 
 export class Notification extends Model {
     declare id: number;
@@ -199,12 +198,11 @@ export class RecommendationNotification extends Notification {
 
     private async createAssistanceGuardNotification() {
         if (this.symptom.level === SymptomLevel.HIGH || this.symptom.level === SymptomLevel.SOS) {
-            const nr = new NotificationRepository();
             const n = await buildNotificationFromType({
                 type: NotificationType.GUARD_ASSISTANCE, recipients: [this.customRecipient], symptom: this.symptom
             }, this.customRecipient);
             n.scheduled = true;
-            await nr.save(n);
+            await n.save();
         }
     }
 
