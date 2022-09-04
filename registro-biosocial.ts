@@ -11,6 +11,7 @@ export class QuestionRegistroBiosocial extends Model {
     declare question: string
     declare type: number
     declare hasDefaultAnswer: boolean
+    declare isActive : boolean
     static AnswerRegistroBiosocial: HasMany<QuestionRegistroBiosocial, AnswerRegistroBiosocial>;
 }
 
@@ -32,6 +33,11 @@ QuestionRegistroBiosocial.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: QuestionType.SIMPLE_SELECTION
+    },
+    isActive: {
+        type :DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue : true
     }
 }, {
     sequelize: DBManager.getInstance(),
