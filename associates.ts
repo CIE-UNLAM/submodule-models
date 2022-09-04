@@ -19,6 +19,7 @@ import {Efector} from "./efector";
 import {RiskFactor} from "./risk-factor";
 import {RiskFactorPatient} from "./risk-factor-patient";
 import {PostMedicalAssistance} from "./post-medical-assistance";
+import {GuardAssistance} from "./guard-assistance";
 
 export function associate() {
     // Users Service
@@ -32,13 +33,13 @@ export function associate() {
     User.hasMany(AnsweredQuestions);
     AnsweredQuestions.belongsTo(AnswerRegistroBiosocial);
     AnswerRegistroBiosocial.hasMany(AnsweredQuestions);
-    Patient.FinishedPatient = Patient.hasOne(FinishedPatient,{
+    Patient.FinishedPatient = Patient.hasOne(FinishedPatient, {
         foreignKey: {
             allowNull: false
         }
     });
     FinishedPatient.Patient = FinishedPatient.belongsTo(Patient);
-    User.FinishedPatient = User.hasMany(FinishedPatient,{
+    User.FinishedPatient = User.hasMany(FinishedPatient, {
         foreignKey: {
             allowNull: false
         }
@@ -92,4 +93,6 @@ export function associate() {
     Symptom.AnswerSymptom = Symptom.hasMany(AnswerSymptom);
     Patient.WeeklySymptomReport = Patient.hasMany(WeeklySymptomReport);
     WeeklySymptomReport.Patient = WeeklySymptomReport.belongsTo(Patient);
+    GuardAssistance.Patient = GuardAssistance.belongsTo(Patient);
+    Patient.GuardAssistance = Patient.hasMany(GuardAssistance);
 }

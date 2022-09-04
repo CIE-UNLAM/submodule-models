@@ -1,10 +1,10 @@
 import {DBManager} from "../utils/db";
 import {Patient} from "./patient";
 import {User} from "./users";
-import {BelongsTo, DataTypes, HasMany, HasOne, Model} from 'sequelize';
+import {BelongsTo, DataTypes, Model} from 'sequelize';
 import {Control} from "./control";
 
-export class Appointment extends Model{
+export class Appointment extends Model {
     declare id: number;
     declare date: Date;
     declare isConfirmed: boolean;
@@ -12,6 +12,8 @@ export class Appointment extends Model{
     declare isActive: boolean;
     declare hasAssisted: boolean;
     declare title: string;
+    declare Patient: Patient;
+    declare User: User;
 
     static Medic: BelongsTo<Appointment, User>;
     static Patient: BelongsTo<Appointment, Patient>;
@@ -61,33 +63,33 @@ Appointment.init({
 });
 
 export interface InputAppointmentListDTO {
-    medicUsername? : string,
-    patientUsername? : string,
-    dateFrom? : string,
-    dateTo? : string,
+    medicUsername?: string,
+    patientUsername?: string,
+    dateFrom?: string,
+    dateTo?: string,
     all?: string,
     assistedStatus?: string
 }
 
 export interface InputAppointmentCreationDTO {
-    patientUsername : string,
-    medicUsername : string,
-    title? : string,
-    date : string,
-    isConfirmed : boolean,
-    isVirtual : boolean,
+    patientUsername: string,
+    medicUsername: string,
+    title?: string,
+    date: string,
+    isConfirmed: boolean,
+    isVirtual: boolean,
     ControlId?: number
 }
 
 export interface InputAppointmentUpdateDTO {
-    appointmentId : number,
-    patientUsername? : string,
-    medicUsername? : string,
-    title? : string,
-    date? : string,
-    isConfirmed? : boolean,
-    isVirtual? : boolean,
+    appointmentId: number,
+    patientUsername?: string,
+    medicUsername?: string,
+    title?: string,
+    date?: string,
+    isConfirmed?: boolean,
+    isVirtual?: boolean,
     ControlId?: number,
-    isActive? : boolean,
+    isActive?: boolean,
     hasAssisted?: boolean
 }

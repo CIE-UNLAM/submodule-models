@@ -1,15 +1,16 @@
 import {DBManager} from "../utils/db";
 import {BelongsTo, DataTypes, HasMany, Model} from "sequelize";
-import { QuestionWeeklyRegistration } from "./question-weekly-registration";
-import { Alert } from "./alert";
-import { SymptomRecommendation } from "./symptom-recommendation";
-import { AnswerSymptom } from "./answer-symptom";
+import {QuestionWeeklyRegistration} from "./question-weekly-registration";
+import {Alert} from "./alert";
+import {SymptomRecommendation} from "./symptom-recommendation";
+import {AnswerSymptom} from "./answer-symptom";
 
 export class Symptom extends Model {
     declare id: number;
     declare active: boolean;
     declare label: string;
     declare level: SymptomLevel;
+    declare SymptomRecommendation: SymptomRecommendation;
     static Alert: HasMany<Symptom, Alert>;
     static QuestionWeeklyRegistration: BelongsTo<Symptom, QuestionWeeklyRegistration>;
     static SymptomRecommendation: BelongsTo<Symptom, SymptomRecommendation>;
