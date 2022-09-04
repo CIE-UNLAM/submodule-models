@@ -14,7 +14,7 @@ export class Notification extends Model {
     declare id: number;
     declare type: NotificationType;
     declare recipient: string;
-    declare device_token: string;
+    declare deviceToken: string;
     declare title: string;
     declare body: string;
     declare viewed: boolean;
@@ -36,14 +36,14 @@ export class Notification extends Model {
     }
 
     public setDeviceToken(token: string) {
-        this.device_token = token;
+        this.deviceToken = token;
     }
 
     public send(): Promise<string> | undefined {
         return FCM.sendPushNotification(
             this.title,
             this.body,
-            this.device_token
+            this.deviceToken
         );
     }
 }
