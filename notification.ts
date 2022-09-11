@@ -192,7 +192,7 @@ export class RecommendationNotification extends Notification {
         if (!this.symptom) {
             const session = await getRootSession();
             const api = new WebAPI(session);
-            this.symptom = <Symptom>await api.get(`/api/1/symptoms/${this.symptomID}`);
+            this.symptom = <Symptom>await api.get(`symptoms/${this.symptomID}`);
         }
     }
 
