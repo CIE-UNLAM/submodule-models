@@ -5,7 +5,7 @@ export class Report extends Model{
     declare id: number;
     declare reportName: string;
     declare storedProcedure: string;
-    declare searchParams: string[];
+    /*declare searchParams: string[];*/
 }
 
 Report.init({
@@ -22,11 +22,11 @@ Report.init({
     storedProcedure: {
         type: DataTypes.STRING,
         allowNull: false
-    },
+    },/*
     searchParams: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
         allowNull: false,
-    }
+    }*/
     },{
     sequelize: DBManager.getInstance(),
     modelName: 'Report'
@@ -37,5 +37,5 @@ export interface reportInput {
      id?: number;
      reportName: string;
      storedProcedure: string;
-     searchParams: string[];
+     /*searchParams: string[];*/
 }
