@@ -21,7 +21,7 @@ SymptomRecommendation.init({
         defaultValue: true
     },
     recommendation: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
 }, {
