@@ -23,6 +23,7 @@ import {GuardAssistance} from "./guard-assistance";
 import {Notification} from "./notification";
 import {PredefinedEvent} from "./predefined-event";
 import {ControlTemplate} from "./control-template";
+import { Report } from "./report";
 
 export function associate() {
     // Users Service
@@ -86,6 +87,7 @@ export function associate() {
     PostMedicalAssistance.User = PostMedicalAssistance.belongsTo(User);
     PredefinedEvent.build();
     ControlTemplate.build();
+    Report.build();
 
     // Mobile Service
     QuestionWeeklyRegistration.AnswerWeeklyRegistration = QuestionWeeklyRegistration.hasMany(AnswerWeeklyRegistration);
