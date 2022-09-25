@@ -158,8 +158,8 @@ export async function buildNotificationFromType(input: NotificationDTO, recipien
         }
     }
     ret.type = input.type;
-    await ret.fillFields();
     ret.recipient = recipient;
+    await ret.fillFields();
     return ret;
 }
 
@@ -198,11 +198,25 @@ export class RecommendationNotification extends Notification {
 
     private async createAssistanceGuardNotification() {
         if (this.symptom.level === SymptomLevel.HIGH || this.symptom.level === SymptomLevel.SOS) {
-            const n = await buildNotificationFromType({
-                type: NotificationType.GUARD_ASSISTANCE, recipients: [this.customRecipient], symptom: this.symptom
-            }, this.customRecipient);
-            n.scheduled = true;
-            await n.save();
+            let hasOneScheduled = false;
+            try {
+                // Esto busca solo enviar una notificación de confirmación a asistencia a guardia x dia
+                const sn = await Notification.findOne({
+                    where: {
+                        'recipient': this.recipient,
+                        'type': NotificationType.GUARD_ASSISTANCE,
+                        'scheduled': true
+                    }
+                });
+                hasOneScheduled = sn !== null;
+            } catch (err) {}
+            if (!hasOneScheduled) {
+                const n = await buildNotificationFromType({
+                    type: NotificationType.GUARD_ASSISTANCE, recipients: [this.customRecipient], symptom: this.symptom
+                }, this.customRecipient);
+                n.scheduled = true;
+                await n.save();
+            }
         }
     }
 
