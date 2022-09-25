@@ -38,10 +38,8 @@ export class Patient extends Model {
     static GuardAssistance: HasMany<Patient, GuardAssistance>;
 
     static calculateFPP(FUM: Date): Date {
-        let FPP = new Date();
-        FPP.setDate(FUM.getDate() + 10);
-        FPP.setMonth(FUM.getMonth() - 3);
-        FPP.setFullYear(FUM.getFullYear() + 1);
+        let FPP = new Date(FUM);
+        FPP.setDate(FUM.getDate() + 283);
         return FPP;
     }
 }
