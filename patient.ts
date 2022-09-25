@@ -40,6 +40,10 @@ export class Patient extends Model {
     static calculateFPP(FUM: Date): Date {
         let FPP = new Date(FUM);
         FPP.setDate(FUM.getDate() + 283);
+        
+        if (FPP < new Date()) {
+            return new Date();
+        }
         return FPP;
     }
 }
