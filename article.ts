@@ -1,5 +1,6 @@
-import {DataTypes, HasMany, Model} from "sequelize";
+import {DataTypes, HasMany, HasOne, Model} from "sequelize";
 import {DBManager} from "../utils/db";
+import { ArticleRanking } from "./article-ranking";
 import {Tag} from "./tag"
 
 export class Article extends Model {
@@ -8,6 +9,7 @@ export class Article extends Model {
     declare body: string;
     declare tags: Tag[];
     static Tag: HasMany<Article, Tag>;
+    static ArticleRanking: HasOne<Article, ArticleRanking>;
 
     static getSearchVector() {
         return 'article_vector';

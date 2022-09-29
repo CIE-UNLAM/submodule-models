@@ -20,6 +20,7 @@ import {RiskFactor} from "./risk-factor";
 import {RiskFactorPatient} from "./risk-factor-patient";
 import {PostMedicalAssistance} from "./post-medical-assistance";
 import {GuardAssistance} from "./guard-assistance";
+import {ArticleRanking} from "./article-ranking";
 
 export function associate() {
     // Users Service
@@ -55,6 +56,8 @@ export function associate() {
     RiskFactor.hasMany(RiskFactorPatient);
 
     // Web Service
+    Article.ArticleRanking = Article.hasOne(ArticleRanking);
+    ArticleRanking.Article = ArticleRanking.belongsTo(Article);
     Article.Tag = Article.hasMany(Tag);
     Tag.Article = Tag.belongsTo(Article);
     PatientHistory.Alert = PatientHistory.hasMany(Alert);
