@@ -14,7 +14,7 @@ export class Notification extends Model {
     declare id: number;
     declare type: NotificationType;
     declare recipient: string;
-    declare device_token: string;
+    declare deviceToken: string;
     declare title: string;
     declare body: string;
     declare viewed: boolean;
@@ -36,14 +36,14 @@ export class Notification extends Model {
     }
 
     public setDeviceToken(token: string) {
-        this.device_token = token;
+        this.deviceToken = token;
     }
 
     public send(): Promise<string> | undefined {
         return FCM.sendPushNotification(
             this.title,
             this.body,
-            this.device_token
+            this.deviceToken
         );
     }
 }
@@ -158,8 +158,8 @@ export async function buildNotificationFromType(input: NotificationDTO, recipien
         }
     }
     ret.type = input.type;
-    await ret.fillFields();
     ret.recipient = recipient;
+    await ret.fillFields();
     return ret;
 }
 
@@ -192,17 +192,31 @@ export class RecommendationNotification extends Notification {
         if (!this.symptom) {
             const session = await getRootSession();
             const api = new WebAPI(session);
-            this.symptom = <Symptom>await api.get(`/api/1/symptoms/${this.symptomID}`);
+            this.symptom = <Symptom>await api.get(`symptoms/${this.symptomID}`);
         }
     }
 
     private async createAssistanceGuardNotification() {
         if (this.symptom.level === SymptomLevel.HIGH || this.symptom.level === SymptomLevel.SOS) {
-            const n = await buildNotificationFromType({
-                type: NotificationType.GUARD_ASSISTANCE, recipients: [this.customRecipient], symptom: this.symptom
-            }, this.customRecipient);
-            n.scheduled = true;
-            await n.save();
+            let hasOneScheduled = false;
+            try {
+                // Esto busca solo enviar una notificación de confirmación a asistencia a guardia x dia
+                const sn = await Notification.findOne({
+                    where: {
+                        'recipient': this.recipient,
+                        'type': NotificationType.GUARD_ASSISTANCE,
+                        'scheduled': true
+                    }
+                });
+                hasOneScheduled = sn !== null;
+            } catch (err) {}
+            if (!hasOneScheduled) {
+                const n = await buildNotificationFromType({
+                    type: NotificationType.GUARD_ASSISTANCE, recipients: [this.customRecipient], symptom: this.symptom
+                }, this.customRecipient);
+                n.scheduled = true;
+                await n.save();
+            }
         }
     }
 
