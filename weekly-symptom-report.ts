@@ -1,6 +1,6 @@
 import {BelongsTo, DataTypes, Model} from "sequelize";
 import {DBManager} from "../utils/db";
-import { Patient } from "./patient";
+import {Patient} from "./patient";
 
 export class WeeklySymptomReport extends Model {
     declare id: number;
@@ -27,7 +27,7 @@ WeeklySymptomReport.init({
         defaultValue: 0.0,
         // https://github.com/sequelize/sequelize/issues/8019
         get() {
-            return parseFloat(this.getDataValue('percentComplete'));
+            return parseFloat(this.getDataValue('percentComplete')).toFixed(2);
         },
     },
     isComplete: {
