@@ -8,6 +8,7 @@ export class PatientHistory extends Model {
     declare id: number;
     declare status: number;
     declare risk: number;
+    declare updateAt: Date;
     static Alert: HasMany<PatientHistory, Alert>;
     static Patient: BelongsTo<PatientHistory, Patient>;
     static HistoryEvent: HasMany<PatientHistory, HistoryEvent>;
