@@ -6,11 +6,11 @@ export interface NotifierDTO {
     socialRisk: number,
     gestationalWeekStart: number,
     gestationalWeekEnd: number,
-    targetPatientState : NotificationTargetPatientState
+    targetPatientState : number
 }
 
 export enum NotificationTargetPatientState {
     ACTIVE = 1,
     NOT_ACTIVE = 0,
-    BOTH = -1,
+    BOTH = 3,
 }
