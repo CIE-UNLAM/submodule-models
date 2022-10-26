@@ -311,6 +311,3 @@ export class GuardAssistanceNotification extends Notification {
         this.body = `¿Se acerco a la guardia para revisar el síntoma ${this.symptom.label.toLocaleLowerCase()} reportado el dia anterior?`
     }
 }
-
-
-
