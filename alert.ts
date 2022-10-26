@@ -8,7 +8,6 @@ export class Alert extends Model {
     declare isViewed: boolean;
     declare risk: number;
     declare gestationalWeek: number;
-    declare targetPatientState: AlertTargetPatientState;
     static PatientHistory: BelongsTo<Alert, PatientHistory>;
     static Symptom: BelongsTo<Alert, Symptom>;
 }
@@ -31,10 +30,6 @@ Alert.init({
     gestationalWeek: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    },
-    targetPatientState: {
-        type: DataTypes.INTEGER,
-        allowNull: false
     }
 }, {
     sequelize: DBManager.getInstance(),
@@ -47,8 +42,7 @@ export interface alertDTO {
     isViewed?: boolean,
     gestationalWeek: number,
     PatientHistoryId?: number,
-    SymptomId: number,
-    targetPatientState: number
+    SymptomId: number
 }
 
 export enum AlertRisk {
@@ -56,10 +50,4 @@ export enum AlertRisk {
     MEDIUM = 2,
     HIGH = 3,
     SOS = 4
-}
-
-export enum AlertTargetPatientState {
-    ACTIVE = 1,
-    NOT_ACTIVE = 0,
-    BOTH = -1,
 }
