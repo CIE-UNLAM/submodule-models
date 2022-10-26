@@ -10,7 +10,7 @@ export interface NotifierDTO {
 }
 
 export enum NotificationTargetPatientState {
-    ACTIVE = 1,
-    NOT_ACTIVE = 0,
+    VALIDATED = 1,
+    NOT_VALIDATED = 0,
     BOTH = 2,
 }
