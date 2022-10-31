@@ -129,7 +129,10 @@ export async function buildNotificationFromType(input: NotificationDTO, recipien
             break;
         }
         case NotificationType.WEEKLY_SYMPTOM_REPORT: {
-            ret = new WeeklySymptomReportNotification();
+            if (!input.title || !input.body) {
+                throw 'unable to create weekly symptom report notification';
+            }
+            ret = new WeeklySymptomReportNotification(input.title, input.body);
             break;
         }
         case NotificationType.APPOINTMENT_REMINDER: {
@@ -229,7 +232,7 @@ export class RecommendationNotification extends Notification {
 
 export class MassiveDeliveryNotification extends Notification {
     public customTitle!: string;
-    public customBody !: string;
+    public customBody!: string;
 
     constructor(title: string, body: string) {
         super();
@@ -247,16 +250,20 @@ export class MassiveDeliveryNotification extends Notification {
 }
 
 export class WeeklySymptomReportNotification extends Notification {
-    constructor() {
+    private readonly customTitle!: string;
+    private readonly customBody!: string;
+    constructor(title: string, body: string) {
         super();
+        this.customTitle = title;
+        this.customBody = body;
     }
 
     setTitle() {
-        this.title = 'Reporte semanal de síntomas'
+        this.title = this.customTitle;
     }
 
     setBody() {
-        this.body = 'No olvides completar tu reporte semanal'
+        this.body = this.customBody;
     }
 }
 
