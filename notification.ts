@@ -276,7 +276,7 @@ export class AppointmentReminderNotification extends Notification {
     }
 
     setTitle() {
-        this.title = `Recordatorio de turno - ${this.appointment.title}`
+        this.title = `Recordatorio de turno`
     }
 
     setBody() {
@@ -294,11 +294,11 @@ export class ControlWithoutAppointmentNotification extends Notification {
     }
 
     setTitle() {
-        this.title = `Recuerde solicitar un turno para el ${this.control.title.toLocaleLowerCase()}`;
+        this.title = `Recuerde solicitar un turno para el nuevo control`;
     }
 
     setBody() {
-        this.body = `Usted tiene el ${this.control.title.toLocaleLowerCase()} asignado en las semanas ${this.control.weekFrom}-${this.control.weekTo} que aun no posee un turno asignado.\nComuníquese con el hospital para solicitarlo`;
+        this.body = `Usted tiene el control: "${this.control.title}".\nAsignado en las semanas ${this.control.weekFrom}-${this.control.weekTo} que aun no posee un turno asignado.\nComuníquese con el hospital para solicitarlo`;
     }
 }
 
@@ -318,6 +318,3 @@ export class GuardAssistanceNotification extends Notification {
         this.body = `¿Se acerco a la guardia para revisar el síntoma ${this.symptom.label.toLocaleLowerCase()} reportado el dia anterior?`
     }
 }
-
-
-
